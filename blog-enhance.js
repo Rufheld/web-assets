@@ -70,9 +70,9 @@ a[href*="unsplash.com"]{display:none!important}
     // reading time
     var bodyEl=document.querySelector('.blog-body-text');var dateEl=document.querySelector('.single-blog-date');
     if(bodyEl&&dateEl&&!dateEl.dataset.rhRt){var wc=(bodyEl.innerText||'').trim().split(/\s+/).length;dateEl.textContent=dateEl.textContent+'  ·  '+Math.max(2,Math.round(wc/200))+' Min. Lesezeit';dateEl.dataset.rhRt='1';}
-    // related "READ MORE" -> "Weiterlesen" + brand style
-    document.querySelectorAll('.recent-blogs a').forEach(function(a){
-      if(/^\s*read\s*more\s*$/i.test(a.textContent)){a.textContent='Weiterlesen →';a.classList.add('rh-readmore');}
+    // related "READ MORE" -> "Weiterlesen" + brand style (target leaf elements with exact text)
+    document.querySelectorAll('.recent-blogs *').forEach(function(el){
+      if(el.children.length===0 && /^\s*read\s*more\s*$/i.test(el.textContent||'')){el.textContent='Weiterlesen →';el.classList.add('rh-readmore');}
     });
     // end CTA — only if the post has no CTA button of its own (avoid double CTA)
     if(bodyEl&&!bodyEl.querySelector('a.button, a.w-button, .w-button')&&!document.getElementById('rh-endcta')){var cta=document.createElement('div');cta.id='rh-endcta';cta.innerHTML='<div class="in"><span class="k">Kostenlose Erstprüfung</span><h3>Lassen Sie Ihre Bewertung kostenlos prüfen</h3><p>Schicken Sie uns den Link – wir sagen Ihnen ehrlich, ob und wie eine Entfernung realistisch ist. Zahlung nur im Erfolgsfall.</p><a class="btn" href="/#analyse">Jetzt Bewertung prüfen lassen →</a><div class="assure"><span>★ 4,9 / 5</span><span>5.000+ Unternehmen</span><span>Antwort &lt; 1 Std.</span></div></div>';(bodyEl.parentNode||bodyEl).appendChild(cta);}
