@@ -50,12 +50,9 @@ a[href*="unsplash.com"]{display:none!important}
 #rh-endcta a.btn:hover{transform:translateY(-2px);filter:saturate(1.08)}
 #rh-endcta .assure{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:.84rem;color:#aebcd6}
 #rh-endcta .assure span{display:inline-flex;align-items:center;gap:.4em}
-/* === FONT CONSISTENCY: force Inter on all body text (beats Webflow's Fustat p-rule via inheritance), Bricolage only on headings === */
-.blog-body-text :not(h2):not(h3):not(h4):not(blockquote){font-family:var(--rh-body)!important}
-.blog-body-text h2,.blog-body-text h3,.blog-body-text h4{font-family:var(--rh-display)!important}
-/* de-Bebas the header chrome on blog pages so the whole page is one type system */
-.navbar-wrapper a,.nav-container a,.navbar a{font-family:var(--rh-body)!important}
-.navbar-wrapper .button,.navbar-wrapper a.w-button,.navbar .button,.navbar a.w-button{font-family:var(--rh-body)!important;text-transform:none!important;letter-spacing:0!important;font-weight:700!important}
+/* === FONT CONSISTENCY: force Inter on all body text (high specificity to beat Webflow's Fustat !important p-rule), Bricolage only on headings === */
+.blog-details-wrapper .blog-body-text.w-richtext :not(h2):not(h3):not(h4):not(blockquote){font-family:var(--rh-body)!important}
+.blog-details-wrapper .blog-body-text.w-richtext h2,.blog-details-wrapper .blog-body-text.w-richtext h3,.blog-details-wrapper .blog-body-text.w-richtext h4{font-family:var(--rh-display)!important}
 `;
   var st=document.createElement('style'); st.id='rh-blog-css'; st.textContent=css; document.head.appendChild(st);
 
