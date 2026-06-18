@@ -58,6 +58,16 @@ a[href*="unsplash.com"]{display:none!important}
 
   function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
   ready(function(){
+    // force body fonts inline (!important) — beats Webflow's high-specificity Fustat rule + any inline styles
+    var bt=document.querySelector('.blog-body-text');
+    if(bt){
+      bt.querySelectorAll('p,li,span,a:not(.button):not(.w-button),strong,b,em,i,td,th,div,figcaption,small').forEach(function(el){
+        el.style.setProperty('font-family','Inter,-apple-system,Segoe UI,Roboto,sans-serif','important');
+      });
+      bt.querySelectorAll('h1,h2,h3,h4,blockquote').forEach(function(el){
+        el.style.setProperty('font-family','"Bricolage Grotesque",-apple-system,sans-serif','important');
+      });
+    }
     // progress bar
     if(!document.getElementById('rh-progress')){var bar=document.createElement('div');bar.id='rh-progress';document.body.appendChild(bar);
       addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=((h.scrollTop/((h.scrollHeight-h.clientHeight)||1))*100)+'%';},{passive:true});}
