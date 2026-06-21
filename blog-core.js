@@ -107,10 +107,8 @@ a[href*="unsplash.com"]{display:none!important}
 .rh-wir-left .rating b{color:var(--rh-ink)}
 .rh-wir-left .stars{color:#f5a623;letter-spacing:1px}
 @media(max-width:860px){.section_wir .wir_content-wrapper{grid-template-columns:1fr!important;gap:28px!important;padding:46px 0!important}.rh-wir-left{text-align:center}.rh-wir-left .sub,.rh-wir-left ul{margin-left:auto;margin-right:auto}.rh-wir-left .rating{justify-content:center}.rh-wir-left li{display:inline-block;text-align:left}}
-/* related-articles LOAD MORE button — brand restyle + tighten spacing (text translated in JS) */
-.read-more-btn{margin-top:6px!important;padding:0!important}
-.load-more-btn.w-button{display:inline-block!important;background:#fff!important;color:var(--rh-blue)!important;font-family:var(--rh-body)!important;font-weight:700!important;font-size:.98rem!important;border:1.5px solid #d8e2ea!important;border-radius:13px!important;padding:.85rem 1.6rem!important;box-shadow:0 4px 14px -8px rgba(11,28,58,.25)!important;transition:transform .18s,border-color .18s,box-shadow .18s!important;text-transform:none!important;letter-spacing:0!important}
-.load-more-btn.w-button:hover{transform:translateY(-2px)!important;border-color:rgba(26,170,142,.6)!important;box-shadow:0 12px 26px -12px rgba(11,28,58,.3)!important}
+/* redundant Finsweet load-more button (sits before the article list; all posts already shown) — remove it + the gap it left */
+.read-more-btn{display:none!important}
 `;
   var st=document.createElement('style'); st.id='rh-blog-css'; st.textContent=css; document.head.appendChild(st);
 
@@ -206,7 +204,5 @@ a[href*="unsplash.com"]{display:none!important}
         });
       });
     })();
-    // related-articles load-more button: translate "Read More" -> German (styling in CSS)
-    document.querySelectorAll('.load-more-btn,.read-more-btn .w-button').forEach(function(el){if(/read\s*more/i.test(el.textContent||''))el.textContent='Weitere Artikel laden';});
   });
 })();
