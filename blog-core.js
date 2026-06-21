@@ -108,9 +108,9 @@ a[href*="unsplash.com"]{display:none!important}
     });
     // translate related-articles section heading "Recent Blogs" -> German + eyebrow
     var relH=document.querySelector('.recent-blogs h2');
-    if(relH && /recent\s*blogs/i.test(relH.textContent||'')){relH.textContent='Weitere Artikel aus dem Ratgeber';}
+    if(relH && /recent\s*blogs/i.test(relH.textContent||'')){relH.textContent='Das könnte Sie auch interessieren';}
     var relTop=document.querySelector('.recent-blogs .recent-blogs-top-wrapper');
-    if(relTop && relH && !relTop.querySelector('.rh-related-eyebrow')){var reb=document.createElement('span');reb.className='rh-related-eyebrow';reb.textContent='Weiterlesen';relTop.insertBefore(reb,relH);}
+    if(relTop && relH && !relTop.querySelector('.rh-related-eyebrow')){var reb=document.createElement('span');reb.className='rh-related-eyebrow';reb.textContent='Ratgeber · Google-Bewertungen';relTop.insertBefore(reb,relH);}
     // germanize related-card dates (e.g. "January 16, 2026" -> "16. Januar 2026")
     document.querySelectorAll('.recent-blogs .text-block-11').forEach(function(d){var m=(d.textContent||'').trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/);if(m&&months[m[1]])d.textContent=parseInt(m[2],10)+'. '+months[m[1]]+' '+m[3];});
     // end CTA — only if the post has no CTA button of its own (avoid double CTA)
