@@ -68,10 +68,36 @@ a[href*="unsplash.com"]{display:none!important}
 .recent-blogs .read-more-text.rh-readmore{margin-top:auto!important;font-family:"Montserrat",var(--rh-body)!important;font-weight:700!important;font-size:.95rem!important;color:#15907a!important;display:inline-flex!important;align-items:center;gap:.45em;text-transform:none!important;letter-spacing:0!important}
 .recent-blogs .rh-readmore .rh-arrow{transition:transform .2s}
 .recent-blogs .blog-main-card-wrapper:hover .rh-arrow{transform:translateX(4px)}
-/* ===== CONVERSION FORM (.section_wir) — soften heading + round inputs/buttons to match /landing ===== */
-.section_wir .heading-style-h2{font-family:var(--rh-display)!important;text-transform:none!important;font-weight:800!important;letter-spacing:-.02em!important;line-height:1.14!important}
-.section_wir input.w-input,.section_wir .text-field-3,.section_wir .search_input,.section_wir .location_name{border-radius:12px!important}
-.section_wir a.button,.section_wir .button.w-button,.section_wir input[type="submit"],.section_wir .w-button{border-radius:14px!important}
+/* ===== CONVERSION FORM — /landing white-card form ported in (same Webflow→Zoho pipeline + full attribution) ===== */
+.section_wir{background:#f6faf9!important}
+.section_wir .wir_form-box{background:transparent!important;padding:0!important}
+.section_wir .formcard{position:relative;z-index:3;background:#fff;border:1px solid #e4ebf2;border-radius:22px;box-shadow:0 30px 70px -30px rgba(0,39,124,.45);padding:30px 28px 26px;max-width:480px;margin:0 auto}
+.section_wir .fc-head{display:flex!important;align-items:center;gap:12px;margin-bottom:4px}
+.section_wir .fc-badge{flex:none;width:46px;height:46px;border-radius:13px;background:var(--rh-grad);display:grid;place-items:center;color:#fff}
+.section_wir .fc-badge svg{width:24px;height:24px}
+.section_wir .formcard h2{font-family:var(--rh-display)!important;font-size:1.34rem!important;font-weight:700!important;letter-spacing:-.02em!important;line-height:1.15!important;color:var(--rh-ink)!important;margin:0!important;text-transform:none!important;text-align:left!important}
+.section_wir .fc-sub{font-family:var(--rh-body)!important;font-size:.92rem!important;line-height:1.5!important;color:var(--rh-ink-soft)!important;margin:6px 0 22px!important;text-align:left!important}
+.section_wir .formcard .field{position:relative!important;margin-bottom:12px!important;display:block!important}
+.section_wir .formcard .field label{display:block!important;font-family:var(--rh-body)!important;font-size:.8rem!important;font-weight:600!important;color:var(--rh-ink-soft)!important;margin-bottom:6px!important;text-align:left!important;text-transform:none!important}
+.section_wir .formcard .field .ic{position:absolute!important;left:14px!important;top:36px!important;width:18px!important;height:18px!important;color:#9fb0c4!important;pointer-events:none}
+.section_wir .formcard input[type=text],.section_wir .formcard input[type=email],.section_wir .formcard input[type=number]{width:100%!important;font-family:var(--rh-body)!important;font-size:1rem!important;font-weight:400!important;color:var(--rh-ink)!important;padding:.92rem 1rem .92rem 2.6rem!important;border:1.5px solid #e4ebf2!important;border-radius:12px!important;background:#fbfdfe!important;box-shadow:none!important;transition:border-color .15s,box-shadow .15s}
+.section_wir .formcard input::placeholder{color:#9fb0c4!important}
+.section_wir .formcard input:focus{outline:0!important;border-color:#1dc3a3!important;box-shadow:0 0 0 4px rgba(29,195,163,.16)!important;background:#fff!important}
+.section_wir .formcard .hiddenfield{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;opacity:0!important;padding:0!important;border:0!important;margin:0!important}
+.section_wir .formcard input[type=submit],.section_wir .formcard .submit-button-form{width:100%!important;margin-top:8px!important;background:var(--rh-grad-green)!important;background-color:transparent!important;color:#fff!important;font-family:var(--rh-body)!important;font-weight:700!important;font-size:1.06rem!important;border:0!important;border-radius:13px!important;padding:1.08rem!important;cursor:pointer;box-shadow:0 12px 28px -10px rgba(26,170,142,.7)!important;transition:transform .18s,box-shadow .18s,filter .2s;text-transform:none!important}
+.section_wir .formcard input[type=submit]:hover{transform:translateY(-2px);filter:saturate(1.08)}
+.section_wir .form-assure{display:flex!important;flex-wrap:wrap;gap:6px 16px;justify-content:center;margin-top:14px!important}
+.section_wir .form-assure span{display:inline-flex!important;align-items:center;gap:.4em;font-family:var(--rh-body)!important;font-size:.82rem!important;color:var(--rh-ink-soft)!important;font-weight:500!important}
+.section_wir .form-assure svg{width:15px;height:15px;color:var(--rh-green)}
+.section_wir .wa-alt{text-align:center!important;margin-top:14px!important;font-family:var(--rh-body)!important;font-size:.88rem!important;color:var(--rh-ink-soft)!important}
+.section_wir .wa-alt a{color:#1fa15a!important;font-weight:700!important;border:0!important;text-decoration:none!important}
+.section_wir .success-msg,.section_wir .error-msg{display:none;padding:18px;border-radius:12px;font-family:var(--rh-body)!important;font-weight:600;margin-top:14px}
+.section_wir .success-msg{background:#e8f8ef;color:#15907a;border:1px solid #b9e8cd}
+.section_wir .error-msg{background:#fdecec;color:#c0392b}
+/* related-articles LOAD MORE button — brand restyle + tighten spacing (text translated in JS) */
+.read-more-btn{margin-top:6px!important;padding:0!important}
+.load-more-btn.w-button{display:inline-block!important;background:#fff!important;color:var(--rh-blue)!important;font-family:var(--rh-body)!important;font-weight:700!important;font-size:.98rem!important;border:1.5px solid #d8e2ea!important;border-radius:13px!important;padding:.85rem 1.6rem!important;box-shadow:0 4px 14px -8px rgba(11,28,58,.25)!important;transition:transform .18s,border-color .18s,box-shadow .18s!important;text-transform:none!important;letter-spacing:0!important}
+.load-more-btn.w-button:hover{transform:translateY(-2px)!important;border-color:rgba(26,170,142,.6)!important;box-shadow:0 12px 26px -12px rgba(11,28,58,.3)!important}
 `;
   var st=document.createElement('style'); st.id='rh-blog-css'; st.textContent=css; document.head.appendChild(st);
 
@@ -115,5 +141,53 @@ a[href*="unsplash.com"]{display:none!important}
     document.querySelectorAll('.recent-blogs .text-block-11').forEach(function(d){var m=(d.textContent||'').trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/);if(m&&months[m[1]])d.textContent=parseInt(m[2],10)+'. '+months[m[1]]+' '+m[3];});
     // end CTA — only if the post has no CTA button of its own (avoid double CTA)
     if(bodyEl&&!bodyEl.querySelector('a.button, a.w-button, .w-button')&&!document.getElementById('rh-endcta')){var cta=document.createElement('div');cta.id='rh-endcta';cta.innerHTML='<div class="in"><span class="k">Kostenlose Erstprüfung</span><h3>Lassen Sie Ihre Bewertung kostenlos prüfen</h3><p>Schicken Sie uns den Link – wir sagen Ihnen ehrlich, ob und wie eine Entfernung realistisch ist. Zahlung nur im Erfolgsfall.</p><a class="btn" href="#analyse">Jetzt Bewertung prüfen lassen →</a><div class="assure"><span>★ 4,9 / 5</span><span>5.000+ Unternehmen</span><span>Antwort &lt; 1 Std.</span></div></div>';(bodyEl.parentNode||bodyEl).appendChild(cta);}
+    // ===== swap blog form for /landing white-card form (identical Webflow Forms API -> Zoho pipeline + full attribution) =====
+    (function(){
+      var wirBox=document.querySelector('.section_wir .wir_form-box');
+      if(!wirBox || wirBox.dataset.rhCard) return;
+      wirBox.dataset.rhCard='1';
+      wirBox.innerHTML='<div class="formcard" id="rh-pruefen-card"><div class="fc-head"><div class="fc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h2>Kostenlose Erstprüfung</h2></div><p class="fc-sub">Innerhalb einer Stunde erhalten Sie eine ehrliche Einschätzung, welche Bewertungen entfernt werden können – unverbindlich.</p><form id="wf-form-Form-Hero" name="wf-form-Form-Hero" data-name="Form Hero" method="get" class="form" data-rh-form=""><div class="field"><label for="search_input">Unternehmen bei Google</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg><input class="search_input text-field-3 w-input pac-target-input" maxlength="256" name="field" data-name="Field" placeholder="Unternehmensname eingeben…" type="text" id="search_input" autocomplete="off" required=""></div><input class="location_name w-input hiddenfield" maxlength="256" name="Location-Name" data-name="Location Name" placeholder="Location Name" type="text" id="Location-Name" tabindex="-1" aria-hidden="true"><input class="place-id w-input hiddenfield" maxlength="256" name="Place-id" data-name="Place id" placeholder="Place id" type="text" id="Place-id" tabindex="-1" aria-hidden="true"><div class="field"><label for="Ihr-Name">Ihr Name</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><input class="name text-field-3 w-input" maxlength="256" name="Ihr-Name" data-name="Ihr Name" placeholder="Vor- und Nachname" type="text" id="Ihr-Name" required=""></div><div class="field"><label for="E-Mail">E-Mail</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg><input class="email text-field-3 w-input" maxlength="256" name="E-Mail" data-name="E Mail" placeholder="ihre@email.de" type="email" id="E-Mail" required=""></div><div class="field"><label for="Telefon">Telefon</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><input class="phone text-field-3 w-input" maxlength="256" name="Telefon" data-name="Telefon" placeholder="Für kurze Rückfragen" type="number" id="Telefon" required=""></div><input class="hiddenfield" name="ref_id" type="text" id="ref_id" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="gclid" type="text" id="gclid" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_source" type="text" id="utm_source" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_medium" type="text" id="utm_medium" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_campaign" type="text" id="utm_campaign" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="page" type="text" id="page" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="timestamp" type="text" id="timestamp" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="lead_source" type="text" id="lead_source" tabindex="-1" aria-hidden="true"><input type="submit" data-wait="Wird geprüft…" class="submit-button-form w-button" value="Jetzt kostenlos prüfen lassen"><div class="form-assure"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> 100 % unverbindlich</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> Keine Vorabkosten</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> DSGVO-konform</span></div></form><div class="success-msg" id="rh-success">✓ Vielen Dank! Wir prüfen Ihre Bewertungen und melden uns innerhalb von 24 Stunden.</div><div class="error-msg" id="rh-error">Es ist ein Fehler aufgetreten. Bitte rufen Sie uns an: +49 800 0009533.</div><p class="wa-alt">Lieber sofort schreiben? <a href="https://wa.me/4915129658221" data-wa="">WhatsApp-Chat starten →</a></p></div>';
+      var q=new URLSearchParams(location.search);
+      var gclid=q.get('gclid')||'',gad=q.get('gad_source')||'',us=q.get('utm_source')||'',um=q.get('utm_medium')||'',uc=q.get('utm_campaign')||'',fbclid=q.get('fbclid')||'',msclkid=q.get('msclkid')||'';
+      var leadSource='Website';
+      if(gclid||gad)leadSource='Google Ads';
+      else if(fbclid||['facebook','instagram','meta','fb','ig'].indexOf(us)>-1)leadSource=(um==='social')?'Meta Organic':'Meta Ads';
+      else if(msclkid)leadSource='Bing Ads';
+      var now=new Date();
+      var ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+'T'+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+'+01:00';
+      var refId='R'+Math.floor(100000+Math.random()*900000);
+      function setv(id,v){var el=document.getElementById(id);if(el)el.value=v;}
+      setv('ref_id',refId);setv('gclid',gclid);setv('utm_source',us);setv('utm_medium',um);setv('utm_campaign',uc);
+      setv('page',location.pathname);setv('timestamp',ts);setv('lead_source',leadSource);
+      wirBox.querySelectorAll('a[data-wa]').forEach(function(a){var base=(a.getAttribute('href')||'').split('?')[0];a.setAttribute('href',base+'?text='+encodeURIComponent('Hallo Rufheld, ich interessiere mich für die Bewertungsprüfung. (Ref: '+refId+')'));});
+      var RH_WF_ENDPOINT='https://webflow.com/api/v1/form/66e9bed574500384950cc91e';
+      var RH_WF={name:'Form Hero',pageId:'6822e0c13a97f3d2d6ca38b2',elementId:'55b6ba7e-bbf7-d741-6111-9859ca09c1d4',domain:'www.rufheld.de'};
+      wirBox.querySelectorAll('[data-rh-form]').forEach(function(form){
+        form.addEventListener('submit',function(e){
+          e.preventDefault();
+          var card=form.closest('.formcard');
+          var btn=form.querySelector('input[type=submit]');
+          var ok=card.querySelector('#rh-success'),err=card.querySelector('#rh-error');
+          if(err)err.style.display='none';
+          if(btn){btn.dataset._v=btn.value;btn.value=btn.getAttribute('data-wait')||'Wird geprüft…';btn.disabled=true;}
+          function v(id){var el=document.getElementById(id);return el?el.value:'';}
+          var pp=new URLSearchParams();
+          pp.append('name',RH_WF.name);pp.append('pageId',RH_WF.pageId);pp.append('elementId',RH_WF.elementId);pp.append('domain',RH_WF.domain);
+          pp.append('source',location.href);pp.append('test','false');
+          pp.append('fields[Field]',v('search_input'));pp.append('fields[Location Name]',v('Location-Name'));pp.append('fields[Place id]',v('Place-id'));
+          pp.append('fields[Ihr Name]',v('Ihr-Name'));pp.append('fields[E Mail]',v('E-Mail'));pp.append('fields[Telefon]',v('Telefon'));
+          pp.append('fields[gclid]',v('gclid'));pp.append('fields[utm_source]',v('utm_source'));pp.append('fields[utm_medium]',v('utm_medium'));pp.append('fields[utm_campaign]',v('utm_campaign'));
+          pp.append('fields[lead_source]',v('lead_source'));pp.append('fields[ref_id]',v('ref_id'));pp.append('dolphin','false');
+          fetch(RH_WF_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','Accept':'application/json'},body:pp.toString()})
+            .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return{};});})
+            .then(function(){form.style.display='none';if(ok)ok.style.display='block';
+              if(window.gtag)gtag('event','generate_lead',{event_category:'form',event_label:'blog'});
+              if(window.dataLayer)dataLayer.push({event:'lead_submit',form:'Form Hero'});})
+            .catch(function(){if(err)err.style.display='block';if(btn){btn.value=btn.dataset._v;btn.disabled=false;}});
+        });
+      });
+    })();
+    // related-articles load-more button: translate "Read More" -> German (styling in CSS)
+    document.querySelectorAll('.load-more-btn,.read-more-btn .w-button').forEach(function(el){if(/read\s*more/i.test(el.textContent||''))el.textContent='Weitere Artikel laden';});
   });
 })();
