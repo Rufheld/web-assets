@@ -5,7 +5,7 @@
 
   // ---- fonts ----
   var lf=document.createElement('link'); lf.rel='stylesheet';
-  lf.href='https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap';
+  lf.href='https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap';
   document.head.appendChild(lf);
 
   // ---- CSS (scoped to .blog-* — only bites on blog pages) ----
@@ -53,6 +53,25 @@ a[href*="unsplash.com"]{display:none!important}
 /* === FONT CONSISTENCY: force Inter on all body text (high specificity to beat Webflow's Fustat !important p-rule), Bricolage only on headings === */
 .blog-details-wrapper .blog-body-text.w-richtext :not(h2):not(h3):not(h4):not(blockquote){font-family:var(--rh-body)!important}
 .blog-details-wrapper .blog-body-text.w-richtext h2,.blog-details-wrapper .blog-body-text.w-richtext h3,.blog-details-wrapper .blog-body-text.w-richtext h4{font-family:var(--rh-display)!important}
+/* ===== RELATED ARTICLES (.recent-blogs) — clean editorial cards matching /landing ===== */
+.recent-blogs{background:#f6faf9!important;padding:62px 0 74px!important;border-top:1px solid #e7eef0!important}
+.recent-blogs .recent-blogs-top-wrapper{margin-bottom:32px!important;text-align:center!important}
+.recent-blogs h2.heading-style-h2{font-family:var(--rh-display)!important;font-weight:800!important;font-size:clamp(1.65rem,3vw,2.15rem)!important;letter-spacing:-.02em!important;line-height:1.1!important;color:var(--rh-ink)!important;text-transform:none!important}
+.rh-related-eyebrow{display:block;text-align:center;font-family:"Montserrat",var(--rh-body);font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rh-blue);margin-bottom:9px}
+.recent-blogs .blog-cards-wrapper,.recent-blogs .blogs-collection.w-dyn-items{gap:22px!important}
+.recent-blogs .blog-main-card-wrapper{display:flex!important;flex-direction:column!important;height:100%!important;background:#fff!important;border:1px solid #e6edf2!important;border-radius:18px!important;padding:26px 24px 22px!important;box-shadow:0 4px 18px -12px rgba(11,28,58,.18)!important;transition:transform .2s,box-shadow .2s,border-color .2s!important;text-decoration:none!important}
+.recent-blogs .blog-main-card-wrapper:hover{transform:translateY(-4px)!important;box-shadow:0 22px 42px -22px rgba(11,28,58,.34)!important;border-color:rgba(26,170,142,.5)!important}
+.recent-blogs .text-block-11{font-family:"Montserrat",var(--rh-body)!important;font-weight:600!important;font-size:.73rem!important;letter-spacing:.1em!important;text-transform:uppercase!important;color:var(--rh-blue)!important;margin:0 0 11px!important}
+.recent-blogs .blog-name{font-family:var(--rh-display)!important;font-weight:700!important;font-size:1.2rem!important;line-height:1.18!important;letter-spacing:-.01em!important;color:var(--rh-ink)!important;margin:0 0 10px!important;transition:color .18s!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.recent-blogs .blog-main-card-wrapper:hover .blog-name{color:var(--rh-blue)!important}
+.recent-blogs .text-size-small-2{font-family:"Montserrat",var(--rh-body)!important;font-size:.95rem!important;line-height:1.55!important;color:var(--rh-ink-soft)!important;margin:0 0 18px!important;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.recent-blogs .read-more-text.rh-readmore{margin-top:auto!important;font-family:"Montserrat",var(--rh-body)!important;font-weight:700!important;font-size:.95rem!important;color:#15907a!important;display:inline-flex!important;align-items:center;gap:.45em;text-transform:none!important;letter-spacing:0!important}
+.recent-blogs .rh-readmore .rh-arrow{transition:transform .2s}
+.recent-blogs .blog-main-card-wrapper:hover .rh-arrow{transform:translateX(4px)}
+/* ===== CONVERSION FORM (.section_wir) — soften heading + round inputs/buttons to match /landing ===== */
+.section_wir .heading-style-h2{font-family:var(--rh-display)!important;text-transform:none!important;font-weight:800!important;letter-spacing:-.02em!important;line-height:1.14!important}
+.section_wir input.w-input,.section_wir .text-field-3,.section_wir .search_input,.section_wir .location_name{border-radius:12px!important}
+.section_wir a.button,.section_wir .button.w-button,.section_wir input[type="submit"],.section_wir .w-button{border-radius:14px!important}
 `;
   var st=document.createElement('style'); st.id='rh-blog-css'; st.textContent=css; document.head.appendChild(st);
 
@@ -85,9 +104,16 @@ a[href*="unsplash.com"]{display:none!important}
     if(bodyEl&&dateEl&&!dateEl.dataset.rhRt){var wc=(bodyEl.innerText||'').trim().split(/\s+/).length;dateEl.textContent=dateEl.textContent+'  ·  '+Math.max(2,Math.round(wc/200))+' Min. Lesezeit';dateEl.dataset.rhRt='1';}
     // related "READ MORE" -> "Weiterlesen" + brand style (target leaf elements with exact text)
     document.querySelectorAll('.recent-blogs *').forEach(function(el){
-      if(el.children.length===0 && /^\s*read\s*more\s*$/i.test(el.textContent||'')){el.textContent='Weiterlesen →';el.classList.add('rh-readmore');}
+      if(el.children.length===0 && /^\s*read\s*more\s*$/i.test(el.textContent||'')){el.innerHTML='Weiterlesen <span class="rh-arrow">→</span>';el.classList.add('rh-readmore');}
     });
+    // translate related-articles section heading "Recent Blogs" -> German + eyebrow
+    var relH=document.querySelector('.recent-blogs h2');
+    if(relH && /recent\s*blogs/i.test(relH.textContent||'')){relH.textContent='Weitere Artikel aus dem Ratgeber';}
+    var relTop=document.querySelector('.recent-blogs .recent-blogs-top-wrapper');
+    if(relTop && relH && !relTop.querySelector('.rh-related-eyebrow')){var reb=document.createElement('span');reb.className='rh-related-eyebrow';reb.textContent='Weiterlesen';relTop.insertBefore(reb,relH);}
+    // germanize related-card dates (e.g. "January 16, 2026" -> "16. Januar 2026")
+    document.querySelectorAll('.recent-blogs .text-block-11').forEach(function(d){var m=(d.textContent||'').trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/);if(m&&months[m[1]])d.textContent=parseInt(m[2],10)+'. '+months[m[1]]+' '+m[3];});
     // end CTA — only if the post has no CTA button of its own (avoid double CTA)
-    if(bodyEl&&!bodyEl.querySelector('a.button, a.w-button, .w-button')&&!document.getElementById('rh-endcta')){var cta=document.createElement('div');cta.id='rh-endcta';cta.innerHTML='<div class="in"><span class="k">Kostenlose Erstprüfung</span><h3>Lassen Sie Ihre Bewertung kostenlos prüfen</h3><p>Schicken Sie uns den Link – wir sagen Ihnen ehrlich, ob und wie eine Entfernung realistisch ist. Zahlung nur im Erfolgsfall.</p><a class="btn" href="/#analyse">Jetzt Bewertung prüfen lassen →</a><div class="assure"><span>★ 4,9 / 5</span><span>5.000+ Unternehmen</span><span>Antwort &lt; 1 Std.</span></div></div>';(bodyEl.parentNode||bodyEl).appendChild(cta);}
+    if(bodyEl&&!bodyEl.querySelector('a.button, a.w-button, .w-button')&&!document.getElementById('rh-endcta')){var cta=document.createElement('div');cta.id='rh-endcta';cta.innerHTML='<div class="in"><span class="k">Kostenlose Erstprüfung</span><h3>Lassen Sie Ihre Bewertung kostenlos prüfen</h3><p>Schicken Sie uns den Link – wir sagen Ihnen ehrlich, ob und wie eine Entfernung realistisch ist. Zahlung nur im Erfolgsfall.</p><a class="btn" href="#analyse">Jetzt Bewertung prüfen lassen →</a><div class="assure"><span>★ 4,9 / 5</span><span>5.000+ Unternehmen</span><span>Antwort &lt; 1 Std.</span></div></div>';(bodyEl.parentNode||bodyEl).appendChild(cta);}
   });
 })();
