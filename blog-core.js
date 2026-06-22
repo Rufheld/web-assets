@@ -69,7 +69,7 @@ a[href*="unsplash.com"]{display:none!important}
 .recent-blogs .rh-readmore .rh-arrow{transition:transform .2s}
 .recent-blogs .blog-main-card-wrapper:hover .rh-arrow{transform:translateX(4px)}
 /* ===== CONVERSION FORM — /landing white-card form ported in (same Webflow→Zoho pipeline + full attribution) ===== */
-.section_wir{background:#f6faf9!important}
+.section_wir{background-color:#f6faf9!important;background-image:linear-gradient(180deg,#ffffff 0,#f6faf9 110px)!important;background-repeat:no-repeat!important}
 .section_wir .wir_form-box{background:transparent!important;padding:0!important}
 .section_wir .formcard{position:relative;z-index:3;background:#fff;border:1px solid #e4ebf2;border-radius:22px;box-shadow:0 30px 70px -30px rgba(0,39,124,.45);padding:30px 28px 26px;max-width:480px;margin:0 auto}
 .section_wir .fc-head{display:flex!important;align-items:center;gap:12px;margin-bottom:4px}
