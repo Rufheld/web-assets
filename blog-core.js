@@ -205,20 +205,16 @@ a[href*="unsplash.com"]{display:none!important}
         });
       });
     })();
-    // ===== article in-body CTA: restyle rocket button to form button, drop helper text + empty spacers, scroll to form =====
+    // ===== article in-body CTA: hide the rocket button + its helper text/empty spacers (form follows directly) =====
     (function(){
       if(!bodyEl) return;
       var aBtn=[].slice.call(bodyEl.querySelectorAll('a.w-button, a.button')).filter(function(a){return /🚀|analyse|kostenlos|prüf/i.test(a.textContent)|| /^https?:\/\/(www\.)?rufheld\.de\/?$/i.test(a.getAttribute('href')||'');})[0];
       if(!aBtn || aBtn.dataset.rhCta) return;
       aBtn.dataset.rhCta='1';
-      aBtn.classList.add('rh-cta-btn');
-      aBtn.textContent='Jetzt kostenlos prüfen lassen';
-      aBtn.removeAttribute('target');
-      aBtn.setAttribute('href','#rh-pruefen-card');
-      aBtn.addEventListener('click',function(e){var t=document.getElementById('rh-pruefen-card')||document.querySelector('.section_wir');if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'center'});}});
       var host=aBtn.closest('.w-embed')||aBtn.closest('p')||aBtn;
       var sib=host.nextElementSibling;
       while(sib){var nx=sib.nextElementSibling;var bare=(sib.textContent||'').replace(/[‍ ​\s]/g,'');if(sib.tagName==='P'&&(bare===''||/senden\s*sie\s*uns|business\s*profil|prüfen\s*kostenfrei/i.test(sib.textContent||''))){sib.style.display='none';sib=nx;}else{break;}}
+      host.style.display='none';
     })();
     // ===== reorder: form section directly after the article, before "more blog posts" =====
     (function(){var wirSec=document.querySelector('.section_wir'),recSec=document.querySelector('.recent-blogs');if(wirSec&&recSec&&wirSec.parentNode===recSec.parentNode){recSec.parentNode.insertBefore(wirSec,recSec);}})();
