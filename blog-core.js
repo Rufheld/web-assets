@@ -106,6 +106,11 @@ a[href*="unsplash.com"]{display:none!important}
 .rh-wir-left .rating{display:flex;align-items:center;gap:10px;font-family:var(--rh-body);font-size:.95rem;color:var(--rh-ink-soft)}
 .rh-wir-left .rating b{color:var(--rh-ink)}
 .rh-wir-left .stars{color:#f5a623;letter-spacing:1px}
+.rh-wir-img{width:100%;height:100%}
+.rh-wir-img img{display:block;width:100%;height:100%;min-height:360px;max-height:580px;object-fit:cover;border-radius:22px;box-shadow:0 30px 70px -34px rgba(0,39,124,.5)}
+.section_wir .wir_content-wrapper.rh-noleft{grid-template-columns:minmax(0,520px)!important;justify-content:center!important}
+.blog-body-text a.button.w-button.rh-cta-btn,a.w-button.rh-cta-btn{display:inline-flex!important;align-items:center;gap:.5em;background:var(--rh-grad-green)!important;color:#fff!important;font-family:var(--rh-body)!important;font-weight:700!important;font-size:1.04rem!important;line-height:1.1!important;padding:1rem 1.7rem!important;border-radius:13px!important;box-shadow:0 14px 30px -10px rgba(26,170,142,.7)!important;border:0!important;text-transform:none!important;letter-spacing:0!important;transition:transform .18s,filter .2s}
+.blog-body-text a.button.w-button.rh-cta-btn:hover,a.w-button.rh-cta-btn:hover{transform:translateY(-2px);filter:saturate(1.08)}
 @media(max-width:860px){.section_wir .wir_content-wrapper{grid-template-columns:1fr!important;gap:28px!important;padding:46px 0!important}.rh-wir-left{text-align:center}.rh-wir-left .sub,.rh-wir-left ul{margin-left:auto;margin-right:auto}.rh-wir-left .rating{justify-content:center}.rh-wir-left li{display:inline-block;text-align:left}}
 /* redundant Finsweet load-more button (sits before the article list; all posts already shown) — remove it + the gap it left */
 .read-more-btn{display:none!important}
@@ -159,9 +164,10 @@ a[href*="unsplash.com"]{display:none!important}
       wirBox.dataset.rhCard='1';
       var wirWrap=wirBox.parentNode;
       if(wirWrap && !wirWrap.querySelector('.rh-wir-left')){
-        var left=document.createElement('div');left.className='rh-wir-left';
-        left.innerHTML='<h2>Eine ungerechtfertigte Bewertung kostet Sie täglich <span class="g">Kunden</span>.</h2><p class="sub">Wir prüfen kostenlos, welche Bewertungen gegen die Google-Richtlinien verstoßen – und sorgen für ihre Entfernung. Zahlung nur im Erfolgsfall.</p><ul><li>Zahlung nur bei Erfolg</li><li>Erste Einschätzung in 1 Stunde</li><li>5.000+ geprüfte Unternehmen</li></ul><div class="rating"><span class="stars">★★★★★</span> <b>4,9 / 5</b> · 98 % Weiterempfehlung</div>';
-        wirWrap.insertBefore(left,wirBox);
+        var heroImg=document.querySelector('.blog-image-wrapper img, .blog-details-wrapper img, .blog-image');
+        var heroSrc=heroImg?(heroImg.getAttribute('src')||heroImg.currentSrc||heroImg.src||''):'';
+        if(heroSrc){var left=document.createElement('div');left.className='rh-wir-left';left.innerHTML='<div class="rh-wir-img"><img src="'+heroSrc+'" alt="" loading="lazy"></div>';wirWrap.insertBefore(left,wirBox);}
+        else{wirWrap.classList.add('rh-noleft');}
       }
       wirBox.innerHTML='<div class="formcard" id="rh-pruefen-card"><div class="fc-head"><div class="fc-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h2>Kostenlose Erstprüfung</h2></div><p class="fc-sub">Innerhalb einer Stunde erhalten Sie eine ehrliche Einschätzung, welche Bewertungen entfernt werden können – unverbindlich.</p><form id="wf-form-Form-Hero" name="wf-form-Form-Hero" data-name="Form Hero" method="get" class="form" data-rh-form=""><div class="field"><label for="search_input">Unternehmen bei Google</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg><input class="search_input text-field-3 w-input pac-target-input" maxlength="256" name="field" data-name="Field" placeholder="Unternehmensname eingeben…" type="text" id="search_input" autocomplete="off" required=""></div><input class="location_name w-input hiddenfield" maxlength="256" name="Location-Name" data-name="Location Name" placeholder="Location Name" type="text" id="Location-Name" tabindex="-1" aria-hidden="true"><input class="place-id w-input hiddenfield" maxlength="256" name="Place-id" data-name="Place id" placeholder="Place id" type="text" id="Place-id" tabindex="-1" aria-hidden="true"><div class="field"><label for="Ihr-Name">Ihr Name</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><input class="name text-field-3 w-input" maxlength="256" name="Ihr-Name" data-name="Ihr Name" placeholder="Vor- und Nachname" type="text" id="Ihr-Name" required=""></div><div class="field"><label for="E-Mail">E-Mail</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg><input class="email text-field-3 w-input" maxlength="256" name="E-Mail" data-name="E Mail" placeholder="ihre@email.de" type="email" id="E-Mail" required=""></div><div class="field"><label for="Telefon">Telefon</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><input class="phone text-field-3 w-input" maxlength="256" name="Telefon" data-name="Telefon" placeholder="Für kurze Rückfragen" type="number" id="Telefon" required=""></div><input class="hiddenfield" name="ref_id" type="text" id="ref_id" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="gclid" type="text" id="gclid" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_source" type="text" id="utm_source" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_medium" type="text" id="utm_medium" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_campaign" type="text" id="utm_campaign" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="page" type="text" id="page" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="timestamp" type="text" id="timestamp" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="lead_source" type="text" id="lead_source" tabindex="-1" aria-hidden="true"><input type="submit" data-wait="Wird geprüft…" class="submit-button-form w-button" value="Jetzt kostenlos prüfen lassen"><div class="form-assure"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> 100 % unverbindlich</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> Keine Vorabkosten</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> DSGVO-konform</span></div></form><div class="success-msg" id="rh-success">✓ Vielen Dank! Wir prüfen Ihre Bewertungen und melden uns innerhalb von 24 Stunden.</div><div class="error-msg" id="rh-error">Es ist ein Fehler aufgetreten. Bitte rufen Sie uns an: +49 800 0009533.</div><p class="wa-alt">Lieber sofort schreiben? <a href="https://wa.me/4915129658221" data-wa="">WhatsApp-Chat starten →</a></p></div>';
       var q=new URLSearchParams(location.search);
@@ -204,5 +210,22 @@ a[href*="unsplash.com"]{display:none!important}
         });
       });
     })();
+    // ===== article in-body CTA: restyle rocket button to form button, drop helper text + empty spacers, scroll to form =====
+    (function(){
+      if(!bodyEl) return;
+      var aBtn=[].slice.call(bodyEl.querySelectorAll('a.w-button, a.button')).filter(function(a){return /🚀|analyse|kostenlos|prüf/i.test(a.textContent)|| /^https?:\/\/(www\.)?rufheld\.de\/?$/i.test(a.getAttribute('href')||'');})[0];
+      if(!aBtn || aBtn.dataset.rhCta) return;
+      aBtn.dataset.rhCta='1';
+      aBtn.classList.add('rh-cta-btn');
+      aBtn.textContent='Jetzt kostenlos prüfen lassen';
+      aBtn.removeAttribute('target');
+      aBtn.setAttribute('href','#rh-pruefen-card');
+      aBtn.addEventListener('click',function(e){var t=document.getElementById('rh-pruefen-card')||document.querySelector('.section_wir');if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'center'});}});
+      var host=aBtn.closest('.w-embed')||aBtn.closest('p')||aBtn;
+      var sib=host.nextElementSibling;
+      while(sib){var nx=sib.nextElementSibling;var bare=(sib.textContent||'').replace(/[‍ ​\s]/g,'');if(sib.tagName==='P'&&(bare===''||/senden\s*sie\s*uns|business\s*profil|prüfen\s*kostenfrei/i.test(sib.textContent||''))){sib.style.display='none';sib=nx;}else{break;}}
+    })();
+    // ===== reorder: form section directly after the article, before "more blog posts" =====
+    (function(){var wirSec=document.querySelector('.section_wir'),recSec=document.querySelector('.recent-blogs');if(wirSec&&recSec&&wirSec.parentNode===recSec.parentNode){recSec.parentNode.insertBefore(wirSec,recSec);}})();
   });
 })();
