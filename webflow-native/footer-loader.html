@@ -1,0 +1,15 @@
+<!-- RUFHELD blog loader (FINAL, self-updating — do not edit) -->
+<script>
+(function(){
+  if(!/\/blog\//.test(location.pathname)) return;
+  var B='https://cdn.jsdelivr.net/gh/Rufheld/web-assets@';
+  function L(u){var s=document.createElement('script');s.src=u;s.defer=true;document.head.appendChild(s);}
+  try{var c=JSON.parse(localStorage.getItem('rh_sha')||'null');
+      if(c&&c.s&&Date.now()-c.t<300000){L(B+c.s+'/blog-core.js');return;}}catch(e){}
+  fetch('https://api.github.com/repos/Rufheld/web-assets/commits/main',{cache:'no-store'})
+   .then(function(r){return r.json();})
+   .then(function(d){if(d&&d.sha){try{localStorage.setItem('rh_sha',JSON.stringify({s:d.sha,t:Date.now()}));}catch(e){}L(B+d.sha+'/blog-core.js');}
+                     else L(B+'main/blog-core.js?v='+Date.now());})
+   .catch(function(){L(B+'main/blog-core.js?v='+Date.now());});
+})();
+</script>
