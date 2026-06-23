@@ -1,0 +1,121 @@
+<!-- ============================================================= -->
+<!-- RUFHELD BLOG DESIGN — paste into Blog template → "Before </body> tag" -->
+<!-- DOM enhancements only (fonts + CSS are server-rendered in <head>). -->
+<!-- Runs on /blog/* only. Reversible: delete this block. -->
+<!-- ============================================================= -->
+<script>
+(function(){
+  if(!/\/blog\//.test(location.pathname)) return;
+  if(window.__rhBlog) return; window.__rhBlog=1;
+
+  function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
+  ready(function(){
+    // force body fonts inline (!important) — beats Webflow's high-specificity Fustat rule + any inline styles
+    var bt=document.querySelector('.blog-body-text');
+    if(bt){
+      bt.querySelectorAll('p,li,span,a:not(.button):not(.w-button),strong,b,em,i,td,th,div,figcaption,small').forEach(function(el){
+        el.style.setProperty('font-family','Inter,-apple-system,Segoe UI,Roboto,sans-serif','important');
+      });
+      bt.querySelectorAll('h1,h2,h3,h4,blockquote').forEach(function(el){
+        el.style.setProperty('font-family','"Bricolage Grotesque",-apple-system,sans-serif','important');
+      });
+    }
+    // progress bar
+    if(!document.getElementById('rh-progress')){var bar=document.createElement('div');bar.id='rh-progress';document.body.appendChild(bar);
+      addEventListener('scroll',function(){var h=document.documentElement;bar.style.width=((h.scrollTop/((h.scrollHeight-h.clientHeight)||1))*100)+'%';},{passive:true});}
+    // German date
+    var months={January:'Januar',February:'Februar',March:'März',April:'April',May:'Mai',June:'Juni',July:'Juli',August:'August',September:'September',October:'Oktober',November:'November',December:'Dezember'};
+    document.querySelectorAll('.single-blog-date').forEach(function(d){var m=d.textContent.trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/);if(m&&months[m[1]])d.textContent=parseInt(m[2],10)+'. '+months[m[1]]+' '+m[3];});
+    // hide "Photo by ... on ..." credit remnant
+    var hero=document.querySelector('.top-top-image-heading-wrapper');
+    if(hero){[].forEach.call(hero.children,function(c){if(/^\s*Photo by/i.test(c.innerText||'')&&(c.querySelector&&(c.querySelector('a[href*="unsplash"]')||c.innerText.length<60)))c.style.display='none';});}
+    // eyebrow
+    var h1=document.querySelector('.blog-heading-main');
+    if(h1&&!h1.parentNode.querySelector('.rh-eyebrow')){var eb=document.createElement('span');eb.className='rh-eyebrow';eb.textContent='Ratgeber · Google-Bewertungen';h1.parentNode.insertBefore(eb,h1);}
+    // reading time
+    var bodyEl=document.querySelector('.blog-body-text');var dateEl=document.querySelector('.single-blog-date');
+    if(bodyEl&&dateEl&&!dateEl.dataset.rhRt){var wc=(bodyEl.innerText||'').trim().split(/\s+/).length;dateEl.textContent=dateEl.textContent+'  ·  '+Math.max(2,Math.round(wc/200))+' Min. Lesezeit';dateEl.dataset.rhRt='1';}
+    // related "READ MORE" -> "Weiterlesen" + brand style (target leaf elements with exact text)
+    document.querySelectorAll('.recent-blogs *').forEach(function(el){
+      if(el.children.length===0 && /^\s*read\s*more\s*$/i.test(el.textContent||'')){el.innerHTML='Weiterlesen <span class="rh-arrow">→</span>';el.classList.add('rh-readmore');}
+    });
+    // translate related-articles section heading "Recent Blogs" -> German + eyebrow
+    var relH=document.querySelector('.recent-blogs h2');
+    if(relH && /recent\s*blogs/i.test(relH.textContent||'')){relH.textContent='Das könnte Sie auch interessieren';}
+    var relTop=document.querySelector('.recent-blogs .recent-blogs-top-wrapper');
+    if(relTop && relH && !relTop.querySelector('.rh-related-eyebrow')){var reb=document.createElement('span');reb.className='rh-related-eyebrow';reb.textContent='Ratgeber · Google-Bewertungen';relTop.insertBefore(reb,relH);}
+    // germanize related-card dates (e.g. "January 16, 2026" -> "16. Januar 2026")
+    document.querySelectorAll('.recent-blogs .text-block-11').forEach(function(d){var m=(d.textContent||'').trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})$/);if(m&&months[m[1]])d.textContent=parseInt(m[2],10)+'. '+months[m[1]]+' '+m[3];});
+    // end CTA — only if the post has no CTA button of its own (avoid double CTA)
+    if(bodyEl&&!bodyEl.querySelector('a.button, a.w-button, .w-button')&&!document.getElementById('rh-endcta')){var cta=document.createElement('div');cta.id='rh-endcta';cta.innerHTML='<div class="in"><span class="k">Kostenlose Erstprüfung</span><h3>Lassen Sie Ihre Bewertung kostenlos prüfen</h3><p>Schicken Sie uns den Link – wir sagen Ihnen ehrlich, ob und wie eine Entfernung realistisch ist. Zahlung nur im Erfolgsfall.</p><a class="btn" href="#analyse">Jetzt Bewertung prüfen lassen →</a><div class="assure"><span>★ 4,9 / 5</span><span>5.000+ Unternehmen</span><span>Antwort &lt; 1 Std.</span></div></div>';(bodyEl.parentNode||bodyEl).appendChild(cta);}
+    // ===== swap blog form for /landing white-card form (identical Webflow Forms API -> Zoho pipeline + full attribution) =====
+    (function(){
+      var wirBox=document.querySelector('.section_wir .wir_form-box');
+      if(!wirBox || wirBox.dataset.rhCard) return;
+      wirBox.dataset.rhCard='1';
+      var wirWrap=wirBox.parentNode;
+      if(wirWrap){
+        wirWrap.classList.add('rh-noleft');
+        if(!wirWrap.querySelector('.rh-form-head')){
+          var fh=document.createElement('div');fh.className='rh-form-head';
+          fh.innerHTML='<h2>Lassen Sie Ihre Bewertungen jetzt kostenlos prüfen</h2><p>Innerhalb einer Stunde erhalten Sie eine ehrliche Einschätzung, welche Bewertungen entfernt werden können – unverbindlich.</p>';
+          wirWrap.insertBefore(fh,wirBox);
+        }
+      }
+      wirBox.innerHTML='<div class="formcard" id="rh-pruefen-card"><form id="wf-form-Form-Hero" name="wf-form-Form-Hero" data-name="Form Hero" method="get" class="form" data-rh-form=""><div class="field"><label for="search_input">Unternehmen bei Google</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path></svg><input class="search_input text-field-3 w-input pac-target-input" maxlength="256" name="field" data-name="Field" placeholder="Unternehmensname eingeben…" type="text" id="search_input" autocomplete="off" required=""></div><input class="location_name w-input hiddenfield" maxlength="256" name="Location-Name" data-name="Location Name" placeholder="Location Name" type="text" id="Location-Name" tabindex="-1" aria-hidden="true"><input class="place-id w-input hiddenfield" maxlength="256" name="Place-id" data-name="Place id" placeholder="Place id" type="text" id="Place-id" tabindex="-1" aria-hidden="true"><div class="field"><label for="Ihr-Name">Ihr Name</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><input class="name text-field-3 w-input" maxlength="256" name="Ihr-Name" data-name="Ihr Name" placeholder="Vor- und Nachname" type="text" id="Ihr-Name" required=""></div><div class="field"><label for="E-Mail">E-Mail</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg><input class="email text-field-3 w-input" maxlength="256" name="E-Mail" data-name="E Mail" placeholder="ihre@email.de" type="email" id="E-Mail" required=""></div><div class="field"><label for="Telefon">Telefon</label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><input class="phone text-field-3 w-input" maxlength="256" name="Telefon" data-name="Telefon" placeholder="Für kurze Rückfragen" type="number" id="Telefon" required=""></div><input class="hiddenfield" name="ref_id" type="text" id="ref_id" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="gclid" type="text" id="gclid" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_source" type="text" id="utm_source" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_medium" type="text" id="utm_medium" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="utm_campaign" type="text" id="utm_campaign" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="page" type="text" id="page" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="timestamp" type="text" id="timestamp" tabindex="-1" aria-hidden="true"><input class="hiddenfield" name="lead_source" type="text" id="lead_source" tabindex="-1" aria-hidden="true"><input type="submit" data-wait="Wird geprüft…" class="submit-button-form w-button" value="Jetzt kostenlos prüfen lassen"><div class="form-assure"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> 100 % unverbindlich</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> Keine Vorabkosten</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> DSGVO-konform</span></div></form><div class="success-msg" id="rh-success">✓ Vielen Dank! Wir prüfen Ihre Bewertungen und melden uns innerhalb von 24 Stunden.</div><div class="error-msg" id="rh-error">Es ist ein Fehler aufgetreten. Bitte rufen Sie uns an: +49 800 0009533.</div><p class="wa-alt">Lieber sofort schreiben? <a href="https://wa.me/4915129658221" data-wa="">WhatsApp-Chat starten →</a></p></div>';
+      var q=new URLSearchParams(location.search);
+      var gclid=q.get('gclid')||'',gad=q.get('gad_source')||'',us=q.get('utm_source')||'',um=q.get('utm_medium')||'',uc=q.get('utm_campaign')||'',fbclid=q.get('fbclid')||'',msclkid=q.get('msclkid')||'';
+      var leadSource='Website';
+      if(gclid||gad)leadSource='Google Ads';
+      else if(fbclid||['facebook','instagram','meta','fb','ig'].indexOf(us)>-1)leadSource=(um==='social')?'Meta Organic':'Meta Ads';
+      else if(msclkid)leadSource='Bing Ads';
+      var now=new Date();
+      var ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+'T'+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0')+'+01:00';
+      var refId='R'+Math.floor(100000+Math.random()*900000);
+      function setv(id,v){var el=document.getElementById(id);if(el)el.value=v;}
+      setv('ref_id',refId);setv('gclid',gclid);setv('utm_source',us);setv('utm_medium',um);setv('utm_campaign',uc);
+      setv('page',location.pathname);setv('timestamp',ts);setv('lead_source',leadSource);
+      wirBox.querySelectorAll('a[data-wa]').forEach(function(a){var base=(a.getAttribute('href')||'').split('?')[0];a.setAttribute('href',base+'?text='+encodeURIComponent('Hallo Rufheld, ich interessiere mich für die Bewertungsprüfung. (Ref: '+refId+')'));});
+      var RH_WF_ENDPOINT='https://webflow.com/api/v1/form/66e9bed574500384950cc91e';
+      var RH_WF={name:'Form Hero',pageId:'6822e0c13a97f3d2d6ca38b2',elementId:'55b6ba7e-bbf7-d741-6111-9859ca09c1d4',domain:'www.rufheld.de'};
+      wirBox.querySelectorAll('[data-rh-form]').forEach(function(form){
+        form.addEventListener('submit',function(e){
+          e.preventDefault();
+          var card=form.closest('.formcard');
+          var btn=form.querySelector('input[type=submit]');
+          var ok=card.querySelector('#rh-success'),err=card.querySelector('#rh-error');
+          if(err)err.style.display='none';
+          if(btn){btn.dataset._v=btn.value;btn.value=btn.getAttribute('data-wait')||'Wird geprüft…';btn.disabled=true;}
+          function v(id){var el=document.getElementById(id);return el?el.value:'';}
+          var pp=new URLSearchParams();
+          pp.append('name',RH_WF.name);pp.append('pageId',RH_WF.pageId);pp.append('elementId',RH_WF.elementId);pp.append('domain',RH_WF.domain);
+          pp.append('source',location.href);pp.append('test','false');
+          pp.append('fields[Field]',v('search_input'));pp.append('fields[Location Name]',v('Location-Name'));pp.append('fields[Place id]',v('Place-id'));
+          pp.append('fields[Ihr Name]',v('Ihr-Name'));pp.append('fields[E Mail]',v('E-Mail'));pp.append('fields[Telefon]',v('Telefon'));
+          pp.append('fields[gclid]',v('gclid'));pp.append('fields[utm_source]',v('utm_source'));pp.append('fields[utm_medium]',v('utm_medium'));pp.append('fields[utm_campaign]',v('utm_campaign'));
+          pp.append('fields[lead_source]',v('lead_source'));pp.append('fields[ref_id]',v('ref_id'));pp.append('dolphin','false');
+          fetch(RH_WF_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8','Accept':'application/json'},body:pp.toString()})
+            .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json().catch(function(){return{};});})
+            .then(function(){form.style.display='none';if(ok)ok.style.display='block';
+              if(window.gtag)gtag('event','generate_lead',{event_category:'form',event_label:'blog'});
+              if(window.dataLayer)dataLayer.push({event:'lead_submit',form:'Form Hero'});})
+            .catch(function(){if(err)err.style.display='block';if(btn){btn.value=btn.dataset._v;btn.disabled=false;}});
+        });
+      });
+    })();
+    // ===== article in-body CTA: hide the rocket button + its helper text/empty spacers (form follows directly) =====
+    (function(){
+      if(!bodyEl) return;
+      var aBtn=[].slice.call(bodyEl.querySelectorAll('a.w-button, a.button')).filter(function(a){return /🚀|analyse|kostenlos|prüf/i.test(a.textContent)|| /^https?:\/\/(www\.)?rufheld\.de\/?$/i.test(a.getAttribute('href')||'');})[0];
+      if(!aBtn || aBtn.dataset.rhCta) return;
+      aBtn.dataset.rhCta='1';
+      var host=aBtn.closest('.w-embed')||aBtn.closest('p')||aBtn;
+      var sib=host.nextElementSibling;
+      while(sib){var nx=sib.nextElementSibling;var bare=(sib.textContent||'').replace(/[‍ ​\s]/g,'');if(sib.tagName==='P'&&(bare===''||/senden\s*sie\s*uns|business\s*profil|prüfen\s*kostenfrei/i.test(sib.textContent||''))){sib.style.display='none';sib=nx;}else{break;}}
+      host.style.display='none';
+    })();
+    // ===== reorder: form section directly after the article, before "more blog posts" =====
+    (function(){var wirSec=document.querySelector('.section_wir'),recSec=document.querySelector('.recent-blogs');if(wirSec&&recSec&&wirSec.parentNode===recSec.parentNode){recSec.parentNode.insertBefore(wirSec,recSec);}})();
+  });
+})();
+</script>
