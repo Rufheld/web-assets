@@ -142,9 +142,8 @@ a[href*="unsplash.com"]{display:none!important}
     // hide "Photo by ... on ..." credit remnant
     var hero=document.querySelector('.top-top-image-heading-wrapper');
     if(hero){[].forEach.call(hero.children,function(c){if(/^\s*Photo by/i.test(c.innerText||'')&&(c.querySelector&&(c.querySelector('a[href*="unsplash"]')||c.innerText.length<60)))c.style.display='none';});}
-    // eyebrow
-    var h1=document.querySelector('.blog-heading-main');
-    if(h1&&!h1.parentNode.querySelector('.rh-eyebrow')){var eb=document.createElement('span');eb.className='rh-eyebrow';eb.textContent='Ratgeber · Google-Bewertungen';h1.parentNode.insertBefore(eb,h1);}
+    // eyebrow: SERVER-RENDERED via .blog-heading-main::before in the Webflow blog-template head
+    //   (deployed 2026-07-09). Injecting it here as well produced a duplicate line. Do not re-add.
     // reading time
     var bodyEl=document.querySelector('.blog-body-text');var dateEl=document.querySelector('.single-blog-date');
     if(bodyEl&&dateEl&&!dateEl.dataset.rhRt){var wc=(bodyEl.innerText||'').trim().split(/\s+/).length;dateEl.textContent=dateEl.textContent+'  ·  '+Math.max(2,Math.round(wc/200))+' Min. Lesezeit';dateEl.dataset.rhRt='1';}
