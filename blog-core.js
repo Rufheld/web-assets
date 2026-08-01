@@ -123,6 +123,47 @@ a[href*="unsplash.com"]{display:none!important}
 
   function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
   ready(function(){
+    // ===== SEO/GEO: Article + FAQPage JSON-LD (the documented "#1 GEO gap") =====
+    // Injected client-side because Webflow RichText strips <script> from CMS bodies.
+    // Googlebot renders JS, so this closes rich-result eligibility; raw-HTML AI
+    // crawlers get their answers from the server-rendered FAQ text either way.
+    // Runs BEFORE the date/reading-time mutations below (needs the clean date text).
+    (function(){
+      if(!/^\/blog\/[^\/]+\/?$/.test(location.pathname) || document.getElementById('rh-jsonld')) return;
+      try{
+        var meta=function(sel){var el=document.querySelector(sel);return el?(el.getAttribute('content')||''):'';};
+        var dateEl=document.querySelector('.single-blog-date');
+        var iso='';
+        if(dateEl){var m=(dateEl.textContent||'').trim().match(/^([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})/);
+          var MM={January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',July:'07',August:'08',September:'09',October:'10',November:'11',December:'12'};
+          if(m&&MM[m[1]]) iso=m[3]+'-'+MM[m[1]]+'-'+('0'+m[2]).slice(-2);}
+        var org={'@type':'Organization','name':'Rufheld','url':'https://www.rufheld.de'};
+        var graph=[{
+          '@type':'Article',
+          'headline':(document.querySelector('.blog-heading-main')||{}).textContent||document.title,
+          'description':meta('meta[name="description"]'),
+          'image':meta('meta[property="og:image"]')||undefined,
+          'datePublished':iso||undefined,
+          'inLanguage':'de',
+          'mainEntityOfPage':location.origin+location.pathname,
+          'author':org,'publisher':org
+        }];
+        var faqH=[].slice.call(document.querySelectorAll('.blog-body-text h2')).filter(function(h){return /häufige\s+fragen|faq/i.test(h.textContent||'');})[0];
+        if(faqH){
+          var qa=[],node=faqH.nextElementSibling,q=null;
+          while(node&&node.tagName!=='H2'){
+            if(node.tagName==='H3'){q={q:(node.textContent||'').trim(),a:''};qa.push(q);}
+            else if(q&&(node.tagName==='P'||node.tagName==='UL')){q.a+=(q.a?' ':'')+(node.innerText||'').trim();}
+            node=node.nextElementSibling;
+          }
+          qa=qa.filter(function(x){return x.q&&x.a;});
+          if(qa.length){graph.push({'@type':'FAQPage','mainEntity':qa.map(function(x){return {'@type':'Question','name':x.q,'acceptedAnswer':{'@type':'Answer','text':x.a}};})});}
+        }
+        var s=document.createElement('script');s.type='application/ld+json';s.id='rh-jsonld';
+        s.textContent=JSON.stringify({'@context':'https://schema.org','@graph':graph});
+        document.head.appendChild(s);
+      }catch(e){}
+    })();
     // force body fonts inline (!important) — beats Webflow's high-specificity Fustat rule + any inline styles
     var bt=document.querySelector('.blog-body-text');
     if(bt){
