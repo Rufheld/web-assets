@@ -1,19 +1,5 @@
-/* RUFHELD blog redesign — self-contained (CSS + enhancements). Runs on /blog/* (redesign) + injects noindex on /impressum. Registered as a site footer script via Webflow Data API. Reversible: delete the registered script. */
+/* RUFHELD blog redesign — self-contained (CSS + enhancements). Runs on /blog/* only. Registered as a site footer script via Webflow Data API. Reversible: delete the registered script. */
 (function(){
-  /* De-index the legally-required Impressum: it must stay LIVE + linked (§5 DDG),
-     but should not appear in Google results. noindex is the correct signal (NOT a
-     robots.txt block, which would hide the noindex and leave a bare URL listing).
-     Google honours a JS-injected robots meta after it renders the page. Scoped to the
-     exact /impressum path so nothing else is ever affected. Reversible: delete this block. */
-  try{
-    if(/^\/impressum\/?$/.test(location.pathname) &&
-       !document.querySelector('meta[name="robots"][content*="noindex"]')){
-      var _rh_ni=document.createElement('meta');
-      _rh_ni.setAttribute('name','robots'); _rh_ni.setAttribute('content','noindex, follow');
-      document.head.appendChild(_rh_ni);
-    }
-  }catch(e){}
-
   if(!/\/blog\//.test(location.pathname)) return;
   if(window.__rhBlog) return; window.__rhBlog=1;
 
