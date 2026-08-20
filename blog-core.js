@@ -118,11 +118,80 @@ a[href*="unsplash.com"]{display:none!important}
 @media(max-width:860px){.blog-section{padding-bottom:22px!important}.section_wir .wir_content-wrapper{grid-template-columns:1fr!important;gap:22px!important;padding:24px 0 46px!important}.rh-form-head p{font-size:1rem!important}.rh-wir-left{text-align:center}.rh-wir-left .sub,.rh-wir-left ul{margin-left:auto;margin-right:auto}.rh-wir-left .rating{justify-content:center}.rh-wir-left li{display:inline-block;text-align:left}}
 /* redundant Finsweet load-more button (sits before the article list; all posts already shown) — remove it + the gap it left */
 .read-more-btn{display:none!important}
+/* ===== site header + footer — match rufheld.de, replace old Webflow navbar/footer_main (which linked the logo to the deleted /old-home-2) ===== */
+.navbar-wrapper{display:none!important}
+footer.footer_main{display:none!important}
+#rh-hdr{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(246,250,249,.82);border-bottom:1px solid rgba(228,235,242,.8);font-family:var(--rh-body)}
+#rh-hdr .rhh-wrap{max-width:1180px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:68px}
+#rh-hdr .rhh-brand{display:inline-flex;align-items:center}
+#rh-hdr .rhh-logo{width:150px;height:auto;display:block}
+#rh-hdr .rhh-desk{display:none;gap:32px;align-items:center}
+#rh-hdr .rhh-right{display:flex;align-items:center;gap:14px}
+#rh-hdr .rhh-phone{display:inline-flex;align-items:center;gap:.5em;font-weight:700;color:var(--rh-navy);font-size:.98rem;text-decoration:none}
+#rh-hdr .rhh-phone svg{width:18px;height:18px;color:var(--rh-green)}
+#rh-hdr .rhh-cta{display:none;align-items:center;justify-content:center;background:var(--rh-grad-green);color:#fff;font-weight:700;border-radius:14px;text-decoration:none;box-shadow:0 10px 28px -10px rgba(26,170,142,.7);transition:transform .18s,filter .2s}
+#rh-hdr .rhh-cta:hover{transform:translateY(-2px);filter:saturate(1.08)}
+#rh-hdr .rhh-toggle{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;border:1.5px solid #e4ebf2;border-radius:12px;background:#fff;cursor:pointer;padding:0 11px;flex:none}
+#rh-hdr .rhh-toggle span{display:block;height:2px;width:100%;background:var(--rh-navy);border-radius:2px;transition:transform .28s,opacity .2s}
+#rh-hdr .rhh-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#rh-hdr .rhh-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+#rh-hdr .rhh-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#rh-hdr .rhh-mobile{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid #e4ebf2;box-shadow:0 26px 44px -26px rgba(11,28,58,.3);padding:10px 22px 20px;gap:2px;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .24s,transform .24s;z-index:59}
+#rh-hdr .rhh-mobile.open{opacity:1;transform:none;pointer-events:auto}
+#rh-hdr .rhh-mobile a:not(.rhh-cta){padding:14px 4px;font-weight:600;font-size:1.06rem;color:var(--rh-ink);border-bottom:1px solid rgba(228,235,242,.7);text-decoration:none}
+#rh-hdr .rhh-mobile .rhh-mcta{margin-top:14px;padding:1rem;font-size:1.04rem;display:inline-flex}
+@media(min-width:920px){
+#rh-hdr .rhh-desk{display:flex}
+#rh-hdr .rhh-desk a{font-weight:600;font-size:.96rem;color:var(--rh-ink-soft);position:relative;padding:6px 1px;text-decoration:none;transition:color .15s}
+#rh-hdr .rhh-desk a:hover{color:var(--rh-navy)}
+#rh-hdr .rhh-desk a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--rh-grad-green);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+#rh-hdr .rhh-desk a:hover::after{transform:scaleX(1)}
+}
+@media(min-width:720px){#rh-hdr .rhh-cta{display:inline-flex;padding:.7rem 1.2rem;font-size:.92rem}}
+@media(max-width:919px){#rh-hdr .rhh-cta:not(.rhh-mcta){display:none!important}}
+@media(max-width:479px){#rh-hdr .rhh-phone span{display:none}}
+#rh-foot{background:#08152e;color:#aebcd6;padding:54px 0 30px;font-size:.92rem;font-family:var(--rh-body)}
+#rh-foot .rhf-wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+#rh-foot .rhf-grid{display:grid;gap:28px;grid-template-columns:1fr;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.1)}
+#rh-foot .rhf-grid h4{color:#fff;font-family:var(--rh-display);font-size:1rem;margin-bottom:14px}
+#rh-foot .rhf-grid a{display:block;margin-bottom:9px;color:#aebcd6;text-decoration:none;transition:color .15s}
+#rh-foot .rhf-grid a:hover{color:var(--rh-green)}
+#rh-foot .rhf-logo{filter:brightness(0) invert(1);width:130px;height:auto;margin-bottom:14px;display:block}
+#rh-foot .rhf-tag{max-width:30em;margin:0}
+#rh-foot .rhf-bottom{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;padding-top:22px;font-size:.84rem;color:#7d8db0}
+#rh-foot .rhf-bottom .rhf-legal{display:flex;gap:18px;flex-wrap:wrap}
+#rh-foot .rhf-bottom .rhf-legal a{color:#7d8db0;text-decoration:none}
+#rh-foot .rhf-bottom .rhf-legal a:hover{color:var(--rh-green)}
+@media(min-width:760px){#rh-foot .rhf-grid{grid-template-columns:1.4fr 1fr 1fr}}
 `;
   var st=document.createElement('style'); st.id='rh-blog-css'; st.textContent=css; document.head.appendChild(st);
 
   function ready(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded',fn); }
   ready(function(){
+    // ===== Header + Footer: match rufheld.de (replace old Webflow navbar + footer_main, whose logo pointed at the deleted /old-home-2) =====
+    (function(){
+      if(document.getElementById('rh-hdr')) return;
+      var LOGO='https://cdn.prod.website-files.com/66e9bed574500384950cc91e/6822e3f32f621f79f6fd0243_66eac4728631acb94039d9af_55918_RufHeld_RB-03-FINAL-p-500.webp.png';
+      var hdr=document.createElement('header'); hdr.id='rh-hdr';
+      hdr.innerHTML='<div class="rhh-wrap"><a href="/" class="rhh-brand" aria-label="Rufheld"><img src="'+LOGO+'" class="rhh-logo" alt="Rufheld"></a>'+
+        '<nav class="rhh-desk" aria-label="Hauptmenü"><a href="/#ablauf">Ablauf</a><a href="/#warum">Warum uns</a><a href="/#faq">FAQ</a><a href="/blog">Blog</a></nav>'+
+        '<div class="rhh-right"><a class="rhh-phone" href="tel:+498000009533"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+49 800 0009533</span></a>'+
+        '<a class="rhh-cta" href="/#pruefen">Kostenlos prüfen</a>'+
+        '<button class="rhh-toggle" aria-label="Menü" aria-expanded="false"><span></span><span></span><span></span></button></div>'+
+        '<nav class="rhh-mobile" aria-label="Menü"><a href="/#ablauf">Ablauf</a><a href="/#warum">Warum uns</a><a href="/#faq">FAQ</a><a href="/blog">Blog</a><a class="rhh-cta rhh-mcta" href="/#pruefen">Kostenlos prüfen</a></nav></div>';
+      document.body.insertBefore(hdr, document.body.firstChild);
+      var foot=document.createElement('footer'); foot.id='rh-foot';
+      foot.innerHTML='<div class="rhf-wrap"><div class="rhf-grid">'+
+        '<div><img src="'+LOGO+'" class="rhf-logo" alt="Rufheld"><p class="rhf-tag">Spezialisiert auf das Prüfen und Entfernen ungerechtfertigter Online-Bewertungen für Unternehmen mit deutschem Unternehmenssitz. Zahlung nur bei Erfolg.</p></div>'+
+        '<div><h4>Kontakt</h4><a href="tel:+498000009533">+49 800 0009533</a><a href="mailto:info@rufheld.de">info@rufheld.de</a><a href="https://wa.me/498000009533">WhatsApp</a></div>'+
+        '<div><h4>Rechtliches</h4><a href="https://rufheld.de/datenschutzerklarung">Datenschutzerklärung</a><a href="https://rufheld.de/agb">AGB</a><a href="https://rufheld.de/impressum">Impressum</a></div></div>'+
+        '<div class="rhf-bottom"><span>© 2026 Rufheld. Alle Rechte vorbehalten.</span><span class="rhf-legal"><a href="https://rufheld.de/datenschutzerklarung">Datenschutz</a><a href="https://rufheld.de/agb">AGB</a><a href="https://rufheld.de/impressum">Impressum</a></span></div></div>';
+      document.body.appendChild(foot);
+      var t=hdr.querySelector('.rhh-toggle'), m=hdr.querySelector('.rhh-mobile');
+      if(t&&m){t.addEventListener('click',function(){var o=m.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');});
+        m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');t.setAttribute('aria-expanded','false');});});}
+    })();
+
     // ===== SEO/GEO: Article + FAQPage JSON-LD (the documented "#1 GEO gap") =====
     // Injected client-side because Webflow RichText strips <script> from CMS bodies.
     // Googlebot renders JS, so this closes rich-result eligibility; raw-HTML AI
